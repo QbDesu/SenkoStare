@@ -1,8 +1,18 @@
 import * as Discord from 'discord.js';
 import {LocalStorage} from 'node-localstorage';
 import * as wildcard from 'wildcard';
+import { exit } from 'process';
 
 const config = require("./config.json");
+
+if(!config.token){
+    console.error("No token was provided.");
+    exit(1);
+}
+if(!config.dataDirectory){
+    console.error("No dataDirectory was provided.");
+    exit(1);
+}
 const localStorage = new LocalStorage(config.dataDirectory)
 
 const client = new Discord.Client()

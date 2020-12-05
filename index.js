@@ -12,8 +12,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Discord = require("discord.js");
 const node_localstorage_1 = require("node-localstorage");
 const wildcard = require("wildcard");
+const process_1 = require("process");
 const config = require("./config.json");
-const localStorage = new node_localstorage_1.LocalStorage(config.database);
+if (!config.token) {
+    console.error("No token was provided.");
+    process_1.exit(1);
+}
+if (!config.dataDirectory) {
+    console.error("No dataDirectory was provided.");
+    process_1.exit(1);
+}
+const localStorage = new node_localstorage_1.LocalStorage(config.dataDirectory);
 const client = new Discord.Client();
 client.on('ready', () => __awaiter(void 0, void 0, void 0, function* () {
     console.log(`I'm now online as @${client.user.tag}.`);
